@@ -1,7 +1,10 @@
 using eLearning_System.DTO;
 using eLearning_System.Interfaces;
 using eLearning_System.Services;
+using eLearning_System.Services.Admin;
 using eLearning_System.Settings;
+using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 var mongoDbSettings = builder.Configuration.GetSection(nameof(MongoDbConfig)).Get<MongoDbConfig>();
 // Add services to the container.
@@ -9,7 +12,13 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>().AddMongoDbStore
 (
     mongoDbSettings.ConnectionString, mongoDbSettings.Name
 );
+builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection(nameof(MongoDbConfig)));
+builder.Services.AddSingleton<IDatabaseSettings>(x => x.GetRequiredService<IOptions<MongoDbConfig>>().Value);
+
+
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+//builder.Services.AddSingleton<CategoryService>();
 builder.Services.AddCors();
 builder.Services.AddControllersWithViews();
 
