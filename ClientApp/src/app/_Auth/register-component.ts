@@ -13,7 +13,7 @@ import { User } from './user';
 @Component({
   selector: 'app-register-component',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+/*  styleUrls: ['./register.component.css'],*/
 })
 export class RegisterComponent implements OnInit {
   //Base URL, need to change it and read it from the config file

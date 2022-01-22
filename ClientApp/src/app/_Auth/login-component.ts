@@ -12,7 +12,7 @@ import { ToastrService } from "ngx-toastr";
 @Component({
   selector: 'app-login-component',
   templateUrl: './login.component.html',
-  styleUrls: ['./register.component.css']
+/*  styleUrls: ['./register.component.css']*/
 })
 export class LoginComponent {
   /*
