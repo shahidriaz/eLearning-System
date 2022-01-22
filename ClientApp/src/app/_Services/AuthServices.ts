@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { UserWithKey } from '../_Auth/UserWithKey';
 import { Observable, ReplaySubject } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 // Making it Injectable class
 @Injectable({
   providedIn: "root"
@@ -33,12 +34,11 @@ export class AuthService
   private currentUserSource = new ReplaySubject<UserWithKey>(1);
   logedInUser$ = this.currentUserSource.asObservable();
   // Since this service needs to call the APIs, so need to inject HttpClient in constructir
-  constructor(private httpClient: HttpClient, private router: Router)
+  constructor(private httpClient: HttpClient, private router: Router, private toastr: ToastrService)
   {
   }
   //Method to Login
   Login(signIN: SignIN) {
-    debugger;
     // Calling the Login API
     return this.httpClient.post(this.baseUrl + 'User/Login', JSON.stringify(signIN), this.HttpOptions)
       .pipe(
@@ -56,11 +56,23 @@ export class AuthService
     this.httpClient.post<User>(this.baseUrl + 'User/Create', JSON.stringify(user), this.HttpOptions).subscribe(
       result =>
       {
+        this.toastr.success("You have successfully Signed up with us.");
+        this.router.navigate(['login']);
         //console.log(JSON.stringify(result));
       },
       error =>
       {
-        console.log(error);
+        this.toastr.error(error.error);
+        //if (error instanceof Error) {
+        //  this.toastr.error("Unknown error occured!", error.message);
+        //}
+        //else {
+        //  //Multiple errors occured
+        //  for (let i = 0; i < error.error.length; i++) {
+        //    this.toastr.error(error.error[i].code, error.error[i].description);
+        //  }
+          
+        //}
       });
   }
   //This method will set the currentUser along with user name and token in the currentUser replaysubject

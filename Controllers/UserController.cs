@@ -45,8 +45,8 @@ namespace eLearning.Controllers
         /// <param name="user">User to Create</param>
         /// <returns></returns>
         
-        [HttpPost]
-        [Authorize(Roles = "Teachers")]
+        //[HttpPost]
+        //[Authorize(Roles = "Teachers")]
         public async Task<IActionResult> Create([FromBody] User user)
         {
             if (ModelState.IsValid)

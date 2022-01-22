@@ -1,31 +1,25 @@
-<div class="signup-form">
+<!--<div class="signup-form">
   <form #loginForm="ngForm" (ngSubmit)="SignUp()">
     <h2>Sign Up</h2>
     <p>Please fill in this form to create an account!</p>
     <hr>
     <div class="form-group">
-      <input type="text" class="form-control" name="firstName" placeholder="First Name" required="required"
-             [(ngModel)]="User.FirstName">
+      <input type="text" class="form-control" name="firstName" placeholder="First Name" required="required" [(ngModel)]="User.FirstName">
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" name="middleName" placeholder="Middle Name"
-             [(ngModel)]="User.MiddleName">
+      <input type="text" class="form-control" name="middleName" placeholder="Middle Name" [(ngModel)]="User.MiddleName">
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" name="lastName" placeholder="Last Name"
-             [(ngModel)]="User.LastName">
+      <input type="text" class="form-control" name="lastName" placeholder="Last Name" [(ngModel)]="User.LastName">
     </div>
     <div class="form-group">
-      <input type="email" class="form-control" name="email" placeholder="Email" required="required"
-             [(ngModel)]="User.Email">
+      <input type="email" class="form-control" name="email" placeholder="Email" required="required" [(ngModel)]="User.Email">
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" name="password" placeholder="Password" required="required"
-             [(ngModel)]="User.Password">
+      <input type="password" class="form-control" name="password" placeholder="Password" required="required" [(ngModel)]="User.Password">
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required"
-             [(ngModel)]="confirmPassword">
+      <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required" [(ngModel)]="confirmPassword">
     </div>
     <div class="form-group">
       <select [(ngModel)]="User.SelectedRole" name="ddlRoles" id="ddlRoles" class="form-control">
@@ -34,12 +28,66 @@
                 [selected]="role.name == User.SelectedRole">
           {{role.name}}
         </option>
-      </select>
+      </select>-->
       <!--selected value :  {{User.SelectedRole}}-->
-    </div>
+    <!--</div>
     <div class="form-group">
       <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
     </div>
     <div class="hint-text">Already have an account? <a href="#" [routerLink]="['/login']">Login here</a></div>
   </form>
-</div>
+</div>-->
+
+<form #loginForm="ngForm" (ngSubmit)="SignUp()">
+  <div class="form-group">
+    <fieldset>
+      <label class="form-label" for="txtFirstName">First Name</label>
+      <input class="form-control" name="firstName" placeholder="First Name" required="required" [(ngModel)]="User.FirstName" id="txtFirstName">
+    </fieldset>
+  </div>
+
+  <div class="form-group">
+    <fieldset>
+      <label class="form-label mt-4" for="txtMiddleName">Middle Name</label>
+      <input class="form-control" id="txtMiddleName" type="text" name="middleName" placeholder="Middle Name" [(ngModel)]="User.MiddleName">
+    </fieldset>
+  </div>
+
+  <div class="form-group has-success">
+    <label class="form-label mt-4" for="txtLastName">Last Name</label>
+    <input type="text" class="form-control" name="lastName" placeholder="Last Name" [(ngModel)]="User.LastName" id="txtLastName">
+  </div>
+
+  <div class="form-group has-danger">
+    <label class="form-label mt-4" for="txtEmail">Email Address</label>
+    <input type="text" class="form-control" name="email" placeholder="Email" required="required" [(ngModel)]="User.Email" id="txtEmail">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label mt-4" for="txtPassword">Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password" required="required" [(ngModel)]="User.Password" id="txtPassword">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label mt-4" for="txtConfirmPassword">Confirm Password</label>
+    <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required" [(ngModel)]="confirmPassword" id="txtConfirmPassword">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label mt-4" for="ddlRoles">Please Select Role</label>
+    <select [(ngModel)]="User.SelectedRole" name="ddlRoles" id="ddlRoles" class="nav nav-pills">
+      <option *ngFor="let role of availableRoles" class="nav-item dropdown"
+              [ngValue]="role.name"
+              [selected]="role.name == User.SelectedRole">
+        {{role.name}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label class="form-label mt-4" id="spacer"></label>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-outline-primary">Sign Up</button>
+  </div>
+  <div class="hint-text">Already have an account? <a href="#" [routerLink]="['/login']">Login here</a></div>
+</form>

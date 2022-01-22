@@ -1,0 +1,13 @@
+﻿#Use this file to install the docker havaing mongo Db
+#Navigate to the folder where you placed this file and run command docker-compose up –d 
+version: "3.8"
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodbdata:/data/db
+volumes:
+  mongodbdata:
