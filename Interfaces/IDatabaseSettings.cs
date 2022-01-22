@@ -1,12 +1,7 @@
-﻿using eLearning_System.Interfaces;
-
-namespace eLearning_System.Settings
+﻿namespace eLearning_System.Interfaces
 {
-    public class MongoDbConfig : IDatabaseSettings
+    public interface IDatabaseSettings
     {
-        /// <summary>
-     /// Name of the database
-     /// </summary>
         public string Name { get; init; }
         /// <summary>
         /// Hosting URL
