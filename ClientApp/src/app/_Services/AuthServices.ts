@@ -90,6 +90,7 @@ export class AuthService
   }
   GetToken(): string {
     var user: string = "";
+    debugger;
     if (this.currentUserSource && this.getCurrentUser() != null) {
       this.getCurrentUser()?.subscribe(res => {
         user = res.token;

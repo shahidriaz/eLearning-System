@@ -1,6 +1,7 @@
 ﻿using eLearning_System.Interfaces;
 using eLearning_System.Models.Admin;
 using eLearning_System.Services.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
@@ -13,6 +14,7 @@ namespace eLearning_System.Controllers
         {
             _categorySvc = category;
         }
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public Category Create([FromBody] Category category)
         {

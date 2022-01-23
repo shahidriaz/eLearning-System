@@ -75,7 +75,7 @@
 
   <div class="form-group">
     <label class="form-label mt-4" for="ddlRoles">Please Select Role</label>
-    <select [(ngModel)]="User.SelectedRole" name="ddlRoles" id="ddlRoles" class="form-select">
+    <select [(ngModel)]="User.SelectedRole" name="ddlRoles" id="ddlRoles" class="form-control">
       <option *ngFor="let role of availableRoles" class="nav-item dropdown"
               [ngValue]="role.name"
               [selected]="role.name == User.SelectedRole">
@@ -87,7 +87,7 @@
     <label class="form-label mt-4" id="spacer"></label>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-outline-primary">Sign Up</button>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
   </div>
   <div class="hint-text">Already have an account? <a href="#" [routerLink]="['/login']">Login here</a></div>
 </form>
