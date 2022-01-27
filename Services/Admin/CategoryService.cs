@@ -18,9 +18,26 @@ namespace eLearning_System.Services.Admin
             _category.InsertOne(category);
             return category;
         }
+        public List<Category> LoadCategories()
+        {
+            var allCategories = _category.Find(_=>true).ToList();
+            return allCategories;
+        }
+        public bool DeleteCategory(string id) 
+        {
+            DeleteResult result = _category.DeleteOne(id);
+            return result.IsAcknowledged;
+        }
+        public void UpdateCategory(Category category, string id)
+        {
+            //_category.UpdateOne(FilterDefinition())
+        }
     }
     public interface ICategoryService
     {
         public Category InsertDocument(Category category);
+        public List<Category> LoadCategories();
+        public bool DeleteCategory(string id);
+        public void UpdateCategory(Category category, string id);  
     }
 }

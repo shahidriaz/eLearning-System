@@ -25,5 +25,21 @@ namespace eLearning_System.Controllers
             }
             return category;
         }
+        //[Authorize(Roles = "Administrator")]
+        [HttpGet]
+        public List<Category> LoadCategories()
+        {
+            return _categorySvc.LoadCategories();
+        }
+        [HttpDelete]
+        public bool DeleteCategory(string id)
+        {
+            return _categorySvc.DeleteCategory(id);
+        }
+        [HttpDelete]
+        public bool UpdateCategory([FromBody] Category category,string id)
+        {
+            return _categorySvc.DeleteCategory(id);
+        }
     }
 }
