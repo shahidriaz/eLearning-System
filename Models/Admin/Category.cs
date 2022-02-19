@@ -13,5 +13,8 @@ namespace eLearning_System.Models.Admin
 
         [BsonElement("Category")]
         public string CategoryName { get; set; }
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? ParentCategory { get; set; }
     }
 }

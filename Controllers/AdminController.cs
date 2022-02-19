@@ -14,8 +14,8 @@ namespace eLearning_System.Controllers
         {
             _categorySvc = category;
         }
-        [Authorize(Roles = "Administrator")]
-        [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Administrator")]
+        [HttpPost] 
         public Category Create([FromBody] Category category)
         {
             
