@@ -2,6 +2,7 @@
 using eLearning_System.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace eLearning_System.Services
@@ -16,10 +17,13 @@ namespace eLearning_System.Services
         /// It will hold the reference to the configuration
         /// </summary>
         IConfiguration configuration;
+        private readonly SymmetricSecurityKey _key;
+        
         public TokenService(IConfiguration configuration)
         {
             // Setting the configuration from the dependancy
             this.configuration = configuration;
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
         }
         /// <summary>
         /// This method is used to create the JWT Token
@@ -28,7 +32,8 @@ namespace eLearning_System.Services
         /// <returns></returns>
         public string CreateToken(User user)
         {
-            // Issue 
+            #region Old Code
+            /*// Issue 
             string Issuer = configuration["JWT:ValidIssuer"];
             //Audiance
             string Audience = configuration["JWT:ValidAudience"];
@@ -51,7 +56,25 @@ namespace eLearning_System.Services
                 SigningCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256Signature)
             });
             //Return the Token
-            return new JwtSecurityTokenHandler().WriteToken(securityToken);
+            return new JwtSecurityTokenHandler().WriteToken(securityToken);*/
+            #endregion
+
+            #region New Code
+            var claims =  new List<Claim>() {
+                new Claim(JwtRegisteredClaimNames.NameId, user.Email),
+                 new Claim(ClaimTypes.Role, user.SelectedRole)
+            };
+            var cred = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+            var tokenDescriptor = new SecurityTokenDescriptor { 
+              Subject = new ClaimsIdentity(claims),
+              Expires = DateTime.Now.AddDays(7),
+              SigningCredentials = cred
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+            #endregion
+
         }
     }
 }

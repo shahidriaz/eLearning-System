@@ -39,6 +39,7 @@ export class AuthService
   }
   //Method to Login
   Login(signIN: SignIN) {
+    localStorage.setItem("currentUser", JSON.stringify(null));
     // Calling the Login API
     return this.httpClient.post(this.baseUrl + 'User/Login', JSON.stringify(signIN), this.HttpOptions)
       .pipe(

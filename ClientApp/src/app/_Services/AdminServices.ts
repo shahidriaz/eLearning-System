@@ -18,7 +18,7 @@ import { AuthService } from './AuthServices';
 @Injectable({
   providedIn: "root"
 })
-//AuthService
+//AuthServicelocal
 export class AdminService
 {
   //BaseURL
@@ -28,7 +28,7 @@ export class AdminService
   private HttpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': this.GetToken()
+      'Authorization': 'Bearer '+this.GetToken()
     })
   };
   // Since this service needs to call the APIs, so need to inject HttpClient in constructir
@@ -37,8 +37,12 @@ export class AdminService
   }
   //Signup method will be used for signing up the user
   CreateCategory(category: Category) {
+
+
     
-    this.HttpOptions.headers.set("Authorization", this.GetToken());
+
+
+    this.HttpOptions.headers.set("Authorization", 'Bearer ' +this.GetToken());
     debugger;
     this.httpClient.post<Category>(this.baseUrl + 'Admin/Create', JSON.stringify(category), this.HttpOptions).subscribe(
       result =>
