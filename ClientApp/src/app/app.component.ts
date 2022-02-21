@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.setCurrentUser();
   }
+  // If user was already logged in and its data exists in local storage. Then Sign in 
   setCurrentUser() {
     if (localStorage.getItem("currentUser") != null) {
       //If user exists in localstorage

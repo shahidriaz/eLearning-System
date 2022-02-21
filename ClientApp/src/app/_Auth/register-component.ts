@@ -21,11 +21,11 @@ export class RegisterComponent implements OnInit {
   availableRoles: any = []; // declare the array of any type to hold the roles
   selectedRole: string; // selected role by the user
   User: User = new User(); //User object
-  confirmPassword: string;
-  // Constructor injected with HttoClient and AuthService since it needs to use both
+  confirmPassword: string; // This property will be used to check if the enetered password and confirm password are matched
+  // Constructor injected with HttpClient and AuthService since it needs to use both
   //TODO: Shahid, need to remove the HttpClient and move the LoadApplicationRoles in a seperate Service
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.User = new User();
+    this.User = new User(); // Declared the instance of User
     this.User.SelectedRole = "Students"; // preselected Role
   }
   ngOnInit() {

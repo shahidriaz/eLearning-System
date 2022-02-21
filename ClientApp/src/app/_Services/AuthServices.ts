@@ -12,7 +12,7 @@ import { User } from '../_Auth/user'; //User
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { UserWithKey } from '../_Auth/UserWithKey';
-import { Observable, ReplaySubject } from 'rxjs';
+import { empty, Observable, ReplaySubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 // Making it Injectable class
 @Injectable({
@@ -39,41 +39,46 @@ export class AuthService
   }
   //Method to Login
   Login(signIN: SignIN) {
-    localStorage.setItem("currentUser", JSON.stringify(null));
+    localStorage.removeItem("currentUser");
     // Calling the Login API
     return this.httpClient.post(this.baseUrl + 'User/Login', JSON.stringify(signIN), this.HttpOptions)
       .pipe(
-        map((result: any) =>
-            {
-              const user = result;
-              if (user) {
-                localStorage.setItem("currentUser", JSON.stringify(user));
-                this.currentUserSource.next(user);
-              }
+        map((result: any) => {
+          const user = result;
+          if (user) {
+            //Store the User in Local Browser Storage
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            //Add the user in the observable
+            this.currentUserSource.next(user);
+            this.logedInUser$.pipe(map((r: any) => {
+              return r;
             }));
+          }
+        }));
+  }
+  //Method to trigger on Logout
+  Logout() {
+    //remove the user from local storage on logout
+    localStorage.removeItem("currentUser");
+    //Change the following line to add null or empty
+    this.currentUserSource.next();
+    //route to the main page after logout
+    this.router.navigate(['']);
   }
   //Signup method will be used for signing up the user
   SignUp(user: User) {
     this.httpClient.post<User>(this.baseUrl + 'User/Create', JSON.stringify(user), this.HttpOptions).subscribe(
       result =>
       {
+        //Show the message of Success
         this.toastr.success("You have successfully Signed up with us.");
+        //route to login page
         this.router.navigate(['login']);
         //console.log(JSON.stringify(result));
       },
       error =>
       {
         this.toastr.error(error.error);
-        //if (error instanceof Error) {
-        //  this.toastr.error("Unknown error occured!", error.message);
-        //}
-        //else {
-        //  //Multiple errors occured
-        //  for (let i = 0; i < error.error.length; i++) {
-        //    this.toastr.error(error.error[i].code, error.error[i].description);
-        //  }
-          
-        //}
       });
   }
   //This method will set the currentUser along with user name and token in the currentUser replaysubject
@@ -89,9 +94,9 @@ export class AuthService
     }
     return null;
   }
+  //This method is used to get the token of the logged in user
   GetToken(): string {
     var user: string = "";
-    debugger;
     if (this.currentUserSource && this.getCurrentUser() != null) {
       this.getCurrentUser()?.subscribe(res => {
         user = res.token;

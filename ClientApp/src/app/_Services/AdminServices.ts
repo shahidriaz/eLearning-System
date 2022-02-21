@@ -37,11 +37,6 @@ export class AdminService
   }
   //Signup method will be used for signing up the user
   CreateCategory(category: Category) {
-
-
-    
-
-
     this.HttpOptions.headers.set("Authorization", 'Bearer ' +this.GetToken());
     debugger;
     this.httpClient.post<Category>(this.baseUrl + 'Admin/Create', JSON.stringify(category), this.HttpOptions).subscribe(
@@ -53,7 +48,7 @@ export class AdminService
       },
       error =>
       {
-        this.toastr.error(error.error);
+        this.toastr.error(error.message);
       });
   }
   GetToken(): string {

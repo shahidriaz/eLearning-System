@@ -3,6 +3,7 @@ import { AuthService } from "../_Services/AuthServices";
 import { SignIN } from "./SignIN";
 import { Router } from '@angular/router';
 import { ToastrService } from "ngx-toastr";
+import { UserWithKey } from "./UserWithKey";
 /*
  * Created by Shahid Riaz Bhatti
  * www.argumentexception.com
@@ -37,5 +38,10 @@ export class LoginComponent {
         console.log(error.error);
         this.toastr.success(error.error);
       });
+  }
+  //This method is used to logout from the application.
+  //It calls the logout method of the Authentication Service
+  logout() {
+    this.authService.Logout();
   }
 }
