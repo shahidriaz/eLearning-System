@@ -26,7 +26,7 @@ namespace eLearning.Controllers
         /// Used to get all available roles from the Application
         /// </summary>
         /// <returns></returns>
-        public IActionResult GetRoles()
+        public IActionResult Roles()
         {
             IEnumerable<ApplicationRole> appRoles = roleManager.Roles.AsEnumerable();
             if (appRoles != null)
@@ -39,7 +39,7 @@ namespace eLearning.Controllers
         /// </summary>
         /// <param name="roleName">role name</param>
         /// <returns></returns>
-        public async Task<IActionResult> GetRoleByRoleName(string roleName)
+        public async Task<IActionResult> Role(string roleName)
         {
             ApplicationRole appRole = await roleManager.FindByNameAsync(roleName);
             if (appRole != null)

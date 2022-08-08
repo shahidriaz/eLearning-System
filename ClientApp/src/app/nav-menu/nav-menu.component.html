@@ -14,7 +14,8 @@
               [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link active" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="(currentUser$ | async) != null">
+          <li class="nav-item" [routerLinkActive]="['link-active']"
+              *ngIf=" selectedRole != null && selectedRole == 'Administrator'">
             <a class="nav-link" [routerLink]="['/admin']">Admin</a>
           </li>
 
@@ -22,10 +23,10 @@
             <a class="nav-link" [routerLink]="['/fetch-data']">Fetch data</a>
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="(currentUser$ | async) ===null">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/login']">Login</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="(currentUser$ | async) != null">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" (click)="logout()">Logout</a>
           </li>
         </ul>

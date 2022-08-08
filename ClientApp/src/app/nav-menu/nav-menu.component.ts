@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { UserWithKey } from '../_Auth/UserWithKey';
 import { AuthService } from '../_Services/AuthServices';
 
 @Component({
@@ -10,11 +8,12 @@ import { AuthService } from '../_Services/AuthServices';
 })
 export class NavMenuComponent {
   isExpanded = false;
-  currentUser$: Observable<UserWithKey>;
+  selectedRole: string;
   constructor(public authService: AuthService) {}
   ngOnInit(): void
   {
-    this.currentUser$ = this.authService.logedInUser$;
+    this.selectedRole = this.authService.GetSelectedRole();
+    console.log(this.selectedRole);
   }
   collapse() {
     this.isExpanded = false;

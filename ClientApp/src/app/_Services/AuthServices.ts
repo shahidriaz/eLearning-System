@@ -103,5 +103,12 @@ export class AuthService
       });
     }
     return user;
-  } 
+  }
+  GetSelectedRole(): string {
+    let selectedRole: any = "";
+    this.logedInUser$.subscribe(res => {
+      selectedRole = res;
+    });
+    return selectedRole.roles;
+  }
 }

@@ -21,5 +21,9 @@ namespace eLearning.Models
         /// JWT Token
         /// </summary>
         public string Token { get; set; }
+        /// <summary>
+        /// User Role
+        /// </summary>
+        public string Roles { get; set; }
     }
 }

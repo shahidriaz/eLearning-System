@@ -136,6 +136,7 @@ namespace eLearning.Controllers
                         {
                             Token = token,
                             UserName = appUser.UserName,
+                            Roles = assignedRole.FirstOrDefault() ?? ""
                         };
                     }
                 }
