@@ -9,11 +9,14 @@ import { AuthService } from '../_Services/AuthServices';
 export class NavMenuComponent {
   isExpanded = false;
   selectedRole: string;
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService) {
+  }
+  ngAfterContentChecked(): void {
+    this.selectedRole = this.authService.GetSelectedRole();
+  }
   ngOnInit(): void
   {
-    this.selectedRole = this.authService.GetSelectedRole();
-    console.log(this.selectedRole);
+    
   }
   collapse() {
     this.isExpanded = false;

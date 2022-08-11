@@ -99,7 +99,8 @@ export class AuthService
     var user: string = "";
     if (this.currentUserSource && this.getCurrentUser() != null) {
       this.getCurrentUser()?.subscribe(res => {
-        user = res.token;
+        if(res != null)
+          user = res.token;
       });
     }
     return user;
@@ -107,8 +108,11 @@ export class AuthService
   GetSelectedRole(): string {
     let selectedRole: any = "";
     this.logedInUser$.subscribe(res => {
-      selectedRole = res;
+      if(res != null)
+        selectedRole = res;
     });
-    return selectedRole.roles;
+    if(selectedRole != null)
+      return selectedRole.roles;
+    return '';
   }
 }
